@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  #productos {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .producto {
+    width: 150px;
+    height: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .producto:hover {
+    cursor: grab;
+  }
+  
+  .seleccionado {
+    background-color: #e6f7ff;
+  }
+  
+  #carrito {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 50px;
+    padding: 20px;
+    min-height: 100px;
+  }
+  
+  h2 {
+    font-size: 18px;
+  }
+  
+  #subtotal, #total {
+    font-weight: normal;
+  }
+  
+  #subtotal::before, #total::before {
+    content: '$';
+    font-weight: bold;
+  }

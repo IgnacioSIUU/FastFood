@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Selección de productos de comida o bebidas</title>
+  <link rel="stylesheet" href="{% static 'app/css/drag.css' %}">
+  <style>
+    #productos, #carrito {
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 200px;
+      height: 300px;
+      float: left;
+      margin-right: 20px;
+    }
+    #carrito {
+      background-color: #eee;
+    }
+    .producto {
+      border: 1px solid #ccc;
+      padding: 5px;
+      margin-bottom: 5px;
+    }
+    .seleccionado {
+      background-color: #ddd;
+    }
+  </style>
+  <script>
+    function iniciarArrastrar(event) {
+      event.dataTransfer.setData("text/plain", event.target.id);
+    }
+
+    function soltar(event) {
+      event.preventDefault();
+      var idProducto = event.dataTransfer.getData("text/plain");
+      var producto = document.getElementById(idProducto);
+      var carrito = document.getElementById("carrito");
+      var subtotal = document.getElementById("subtotal");
+      var total = document.getElementById("total");
+      var precio = parseFloat(producto.getAttribute("data-precio"));
+      var cantidad = parseFloat(producto.getAttribute("data-cantidad"));
+      producto.parentNode.removeChild(producto);
+      carrito.appendChild(producto);
+      producto.classList.add("seleccionado");
+      cantidad++;
+      producto.setAttribute("data-cantidad", cantidad);
+      subtotal.innerHTML = (parseFloat(subtotal.innerHTML) + precio).toFixed(2);
+      total.innerHTML = (parseFloat(total.innerHTML) + precio).toFixed(2);
+    }
+
+    function cancelarArrastre(event) {
+      event.preventDefault();
+    }
+  </script>
+</head>
+<body>
+  <h1>Selección de productos de comida o bebidas</h1>
+  <div id="productos">
+    <div class="producto" id="producto1" data-precio="1500" data-cantidad="0" draggable="true" ondragstart="iniciarArrastrar(event)">
+      <h2>Hamburguesa</h2>
+      <p>Precio: $2.500</p>
+    </div>
+    <div class="producto" id="producto2" data-precio="2000" data-cantidad="0" draggable="true" ondragstart="iniciarArrastrar(event)">
+      <h2>Pizza Individual</h2>
+      <p>Precio: $3.990</p>
+    </div>
+    <div class="producto" id="producto3" data-precio="1000" data-cantidad="0" draggable="true" ondragstart="iniciarArrastrar(event)">
+      <h2>Hot Dog</h2>
+      <p>Precio: $2.000</p>
+    </div>
+    <div class="producto" id="producto4" data-precio="500" data-cantidad="0" draggable="true" ondragstart="iniciarArrastrar(event)">
+      <h2>Refresco</h2>
+      <p>Precio: $1.300</p>
+    </div>
+    <div class="producto" id="producto5" data-precio="1000" data-cantidad="0" draggable="true" ondragstart="iniciarArrastrar(event)">
+      <h2>Jugo Natural</h2>
+      <p>Precio: $2.500</p>
+    </div>
+    <div>
+        <h2>Subtotal: <span id="subtotal">0.00</span></h2>
+        <h2>Total: <span id="total">0.00</span></h2>
+    </div>
+    <div style="clear:both;"></div>
+    <div id="carrito" ondrop="soltar(event)" ondragover="cancelarArrastre(event)">
+        <h2>Carrito</h2>
+    </div>
+    </body>
+    </html>
+
+
