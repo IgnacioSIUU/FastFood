@@ -10,3 +10,7 @@ def drag_drop(request):
 
 def subir_imagenes(request):
     return render(request, 'app/subir_imagenes.php')
+def inicio(request):
+    return render(request, 'app/inicio.html')
+def registro(request):
+    return render(request, 'app/registro.html')
